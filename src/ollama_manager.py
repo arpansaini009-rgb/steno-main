@@ -19,33 +19,33 @@ logger = logging.getLogger(__name__)
 OLLAMA_DOWNLOAD_URL = "https://github.com/ollama/ollama/releases/download/v0.16.3/ollama-darwin.tgz"
 
 
-def get_bundled_ollama_dir() -> Optional[Path]:
-    """
-    Get the path to the bundled Ollama directory.
+# def get_bundled_ollama_dir() -> Optional[Path]:
+#     """
+#     Get the path to the bundled Ollama directory.
 
-    Returns:
-        Path to the ollama directory, or None if not found
-    """
-    # When running from PyInstaller bundle
-    if getattr(sys, 'frozen', False):
-        # PyInstaller sets _MEIPASS to the temp directory where files are extracted
-        base_path = Path(sys._MEIPASS)
-        ollama_dir = base_path / 'ollama'
-        if ollama_dir.exists():
-            return ollama_dir
+#     Returns:
+#         Path to the ollama directory, or None if not found
+#     """
+#     # When running from PyInstaller bundle
+#     if getattr(sys, 'frozen', False):
+#         # PyInstaller sets _MEIPASS to the temp directory where files are extracted
+#         base_path = Path(sys._MEIPASS)
+#         ollama_dir = base_path / 'ollama'
+#         if ollama_dir.exists():
+#             return ollama_dir
 
-        # Also check relative to executable
-        exe_dir = Path(sys.executable).parent
-        ollama_dir = exe_dir / 'ollama'
-        if ollama_dir.exists():
-            return ollama_dir
+#         # Also check relative to executable
+#         exe_dir = Path(sys.executable).parent
+#         ollama_dir = exe_dir / 'ollama'
+#         if ollama_dir.exists():
+#             return ollama_dir
 
-    # Development mode - check bin directory
-    dev_ollama_dir = Path(__file__).parent.parent / 'bin'
-    if dev_ollama_dir.exists() and (dev_ollama_dir / 'ollama').exists():
-        return dev_ollama_dir
+#     # Development mode - check bin directory
+#     dev_ollama_dir = Path(__file__).parent.parent / 'bin'
+#     if dev_ollama_dir.exists() and (dev_ollama_dir / 'ollama').exists():
+#         return dev_ollama_dir
 
-    return None
+#     return None
 
 
 def get_ollama_binary() -> Optional[Path]:
